@@ -3,15 +3,14 @@ import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
 
 export default defineConfig({
-  // GitHub Pages routing configuration
-// The absolute domain (dashes)
- site: 'https://postcards-from-nyumbani.github.io',
+  // The absolute domain (dashes)
+  site: 'https://postcards-from-nyumbani.github.io',
   
-  // This is the magic toggle!
-  // If building on GitHub, use the subfolder. If on your computer, use the root (/).
-  base: process.env.GITHUB_ACTIONS ? '/postcards_from_nyumbani' : '/',
+  // If building on GitHub, use the subfolder. If on your computer, use normal routing.
+  base: process.env.GITHUB_ACTIONS ? '/postcards_from_nyumbani' : undefined,
 
-  
+  // THIS IS THE MISSING LINCHPIN: Forces GitHub to read folders correctly
+  trailingSlash: 'always',
 
   integrations: [
     tailwind({
