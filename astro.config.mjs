@@ -3,12 +3,7 @@ import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
 
 export default defineConfig({
-  // The absolute domain
   site: 'https://postcards-from-nyumbani.github.io',
-  
-  // Notice we deleted the 'base' line completely!
-
-  // Keep this to ensure GitHub reads your folders correctly
   trailingSlash: 'always',
 
   integrations: [
@@ -22,4 +17,19 @@ export default defineConfig({
       theme: 'github-light',
     },
   },
+  
+  vite: {
+    // THE NEW FIX: Force Vite to treat the Obsidian symlink as a native Astro folder
+    resolve: {
+      preserveSymlinks: true
+    },
+    server: {
+      fs: {
+        allow: [
+          '/home/kobey/Documents/Obsidian Vault',
+          '.'
+        ]
+      }
+    }
+  }
 });

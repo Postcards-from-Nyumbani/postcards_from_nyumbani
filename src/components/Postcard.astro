@@ -1,11 +1,6 @@
 ---
 // src/components/Postcard.astro
-// ─────────────────────────────────────────────────────────────
-// The Postcard — a physical card rendered in pixels.
-// Used in gallery and archive feeds. Each card evokes a real
-// postcard: image, date stamp, category mark, and a snippet.
-// ─────────────────────────────────────────────────────────────
-
+import { Image } from 'astro:assets';
 import { formatPostmark, ROOMS, type Room } from '../lib/collections';
 
 interface Props {
@@ -14,12 +9,11 @@ interface Props {
   date:        Date;
   room:        Room;
   slug:        string;
-  cover?:      string;
+  cover?:      any; 
   tags?:       string[];
-  // Room-specific optional extras
-  author?:     string;  // library
-  mood?:       string;  // archive
-  medium?:     string;  // gallery
+  author?:     string;  
+  mood?:       string;  
+  medium?:     string;  
 }
 
 const {
@@ -35,56 +29,50 @@ const {
   medium,
 } = Astro.props;
 
-// THE FIX: Safely strip the trailing slash off the base URL
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-
 const roomMeta   = ROOMS[room];
 const postmark   = formatPostmark(date);
-
-// THE FIX: Construct the URL safely with the base and a trailing slash
 const href       = `${base}/${room}/${slug}/`;
-
-// Stamp colour map — CSS class suffix
 const stampClass = `stamp--${room}`;
+
+// Check if this card actually has an image to display
+const hasImage = !!cover;
 ---
 
-<article class="postcard group" data-room={room}>
+<article class={`postcard group ${hasImage ? 'postcard--has-cover' : 'postcard--text-only'}`} data-room={room}>
   <a href={href} class="postcard__link" aria-label={`Read: ${title}`}>
 
-    {/* ── Top: Image / Cover ──────────────────────────────── */}
-    <div class="postcard__image-wrap">
-      {cover ? (
-        <img
-          /* THE FIX: Prepend the base URL and safely strip any starting slash from the markdown cover path */
-          src={`${base}/${cover.replace(/^\//, '')}`}
+    {/* ONLY render the image wrap if there is a cover photo */}
+    {hasImage && (
+      <div class="postcard__image-wrap">
+        <Image
+          src={cover}
           alt={title}
+          width={600}
+          height={400}
           class="postcard__image"
           loading="lazy"
           decoding="async"
         />
-      ) : (
-        <div class="postcard__image-placeholder">
-          <div class="postmark-watermark" style="top:50%;left:50%;transform:translate(-50%,-50%)"></div>
-          <span class="postcard__room-initial">{roomMeta.label.split(' ').pop()?.charAt(0)}</span>
+        <div class="postcard__date-badge">
+          <time datetime={date.toISOString()} class="postcard__date">
+            {postmark}
+          </time>
         </div>
-      )}
-
-      {/* Postmark date overlay on image */}
-      <div class="postcard__date-badge">
-        <time datetime={date.toISOString()} class="postcard__date">
-          {postmark}
-        </time>
       </div>
-    </div>
+    )}
 
-    {/* ── Body: Text Content ──────────────────────────────── */}
     <div class="postcard__body">
-
-      {/* Category Stamp */}
       <div class="postcard__stamp-row">
         <span class={`stamp ${stampClass}`}>
           {roomMeta.label}
         </span>
+        
+        {/* If there is no image, we move the date down here so it isn't lost! */}
+        {!hasImage && (
+          <span class="postcard__meta-pill">{postmark}</span>
+        )}
+
         {medium && (
           <span class="postcard__meta-pill">{medium}</span>
         )}
@@ -93,18 +81,14 @@ const stampClass = `stamp--${room}`;
         )}
       </div>
 
-      {/* Title */}
       <h2 class="postcard__title">{title}</h2>
 
-      {/* Author line (for Library cards) */}
       {author && (
         <p class="postcard__author">— {author}</p>
       )}
 
-      {/* Snippet / Description */}
       <p class="postcard__snippet">{description}</p>
 
-      {/* Tags */}
       {tags.length > 0 && (
         <div class="postcard__tags">
           {tags.map(tag => (
@@ -113,7 +97,6 @@ const stampClass = `stamp--${room}`;
         </div>
       )}
 
-      {/* Read more affordance */}
       <div class="postcard__footer">
         <span class="postcard__read-more">
           Continue reading
@@ -128,7 +111,6 @@ const stampClass = `stamp--${room}`;
 </article>
 
 <style>
-  /* ── The Card Shell ─────────────────────────────────────── */
   .postcard {
     background-color: theme('colors.parchment');
     border-radius: theme('borderRadius.postcard');
@@ -146,6 +128,11 @@ const stampClass = `stamp--${room}`;
     box-shadow: theme('boxShadow.card-hover');
   }
 
+  /* Specific styling for pure text cards */
+  .postcard--text-only {
+    border-top: 4px solid theme('colors.postmark');
+  }
+
   .postcard__link {
     display: flex;
     flex-direction: column;
@@ -154,7 +141,6 @@ const stampClass = `stamp--${room}`;
     color: inherit;
   }
 
-  /* ── Image Area ─────────────────────────────────────────── */
   .postcard__image-wrap {
     position: relative;
     aspect-ratio: 3 / 2;
@@ -174,26 +160,6 @@ const stampClass = `stamp--${room}`;
     transform: scale(1.03);
   }
 
-  /* Placeholder when no cover image */
-  .postcard__image-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: theme('colors.vellum');
-    position: relative;
-  }
-
-  .postcard__room-initial {
-    font-family: theme('fontFamily.serif');
-    font-size: 3.5rem;
-    color: theme('colors.fog');
-    line-height: 1;
-    user-select: none;
-  }
-
-  /* Date badge — overlaid postmark */
   .postcard__date-badge {
     position: absolute;
     bottom: 0;
@@ -212,7 +178,6 @@ const stampClass = `stamp--${room}`;
     display: block;
   }
 
-  /* ── Card Body ──────────────────────────────────────────── */
   .postcard__body {
     padding: 1.25rem 1.35rem 1.1rem;
     display: flex;
@@ -228,7 +193,6 @@ const stampClass = `stamp--${room}`;
     gap: 0.5rem;
   }
 
-  /* Small metadata pill (medium, mood) */
   .postcard__meta-pill {
     font-family: theme('fontFamily.sans');
     font-size: 0.65rem;
@@ -236,7 +200,6 @@ const stampClass = `stamp--${room}`;
     letter-spacing: 0.06em;
   }
 
-  /* Title */
   .postcard__title {
     font-family: theme('fontFamily.serif');
     font-size: 1.15rem;
@@ -245,14 +208,12 @@ const stampClass = `stamp--${room}`;
     color: theme('colors.charcoal');
     letter-spacing: -0.01em;
     margin: 0;
-    /* Clamp to 2 lines */
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
-  /* Author (Library only) */
   .postcard__author {
     font-family: theme('fontFamily.serif');
     font-style: italic;
@@ -261,21 +222,18 @@ const stampClass = `stamp--${room}`;
     margin: 0;
   }
 
-  /* Description snippet */
   .postcard__snippet {
     font-family: theme('fontFamily.serif');
     font-size: 0.9rem;
     line-height: 1.65;
     color: theme('colors.sepia');
     margin: 0;
-    /* Clamp to 3 lines */
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
-  /* Tags */
   .postcard__tags {
     display: flex;
     flex-wrap: wrap;
@@ -290,7 +248,6 @@ const stampClass = `stamp--${room}`;
     letter-spacing: 0.04em;
   }
 
-  /* Footer read-more */
   .postcard__footer {
     margin-top: auto;
     padding-top: 0.75rem;

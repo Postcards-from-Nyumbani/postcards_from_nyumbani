@@ -1,22 +1,25 @@
 // src/content.config.ts
 import { defineCollection, z } from 'astro:content';
-import { glob } from 'astro/loaders'; // <-- New v6 import!
+import { glob } from 'astro/loaders';
 
-// ── Shared base schema ───────────────
-const baseSchema = z.object({
+// ── Shared base schema factory ───────────────
+// 1. Wrap the base schema in a function so it can accept Astro's image helper
+const getBaseSchema = ({ image }: { image: any }) => z.object({
   title:       z.string(),
   date:        z.coerce.date(),
   description: z.string(),
   status:      z.enum(['draft', 'published', 'archived']).default('draft'),
   tags:        z.array(z.string()).optional().default([]),
-  cover:       z.string().optional(), 
+  
+  // 2. THE FIX: Astro now knows this is a file to compress, not just text!
+  cover:       image().optional(), 
 });
 
 // ── The Gallery ────────────────────────────────
 const gallery = defineCollection({
-  // Tell Astro exactly which folder to load files from
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/gallery" }),
-  schema: baseSchema.extend({
+  // Pass the image helper into the base schema
+  schema: ({ image }) => getBaseSchema({ image }).extend({
     medium:     z.string().optional(),
     dimensions: z.string().optional(), 
   }),
@@ -25,7 +28,7 @@ const gallery = defineCollection({
 // ── The Library ───────────────────────────
 const library = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/library" }),
-  schema: baseSchema.extend({
+  schema: ({ image }) => getBaseSchema({ image }).extend({
     author:     z.string(),
     year:       z.number().optional(),
     rating:     z.number().min(1).max(5).optional(),
@@ -36,7 +39,7 @@ const library = defineCollection({
 // ── The Conservatory ────────────────────────
 const conservatory = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/conservatory" }),
-  schema: baseSchema.extend({
+  schema: ({ image }) => getBaseSchema({ image }).extend({
     artist:     z.string().optional(),
     album:      z.string().optional(),
     instrument: z.string().optional(), 
@@ -47,7 +50,7 @@ const conservatory = defineCollection({
 // ── The Archive ────────────────────────────────
 const archive = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/archive" }),
-  schema: baseSchema.extend({
+  schema: ({ image }) => getBaseSchema({ image }).extend({
     mood:       z.string().optional(), 
     dedication: z.string().optional(), 
   }),

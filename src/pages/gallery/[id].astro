@@ -4,28 +4,15 @@ import '../../styles/global.css';
 import { getCollection, render } from 'astro:content';
 import { formatPostmark, ROOMS } from '../../lib/collections';
 
-// 1. Tell Astro which URLs to generate
 export async function getStaticPaths() {
-  // Grab all published gallery items
-  const galleryEntries = await getCollection('gallery', ({ data }) => {
-    return data.status === 'published';
-  });
-
-  // Create a route for each item's ID
-  return galleryEntries.map(post => ({
-    params: { id: post.id }, // This becomes the URL
-    props: { post },         // This passes the data to the page below
-  }));
+  const galleryEntries = await getCollection('gallery', ({ data }) => data.status === 'published');
+  return galleryEntries.map(post => ({ params: { id: post.id }, props: { post } }));
 }
 
-// 2. Grab the specific post for the current URL
 const { post } = Astro.props;
-
-// 3. Render the Markdown into HTML
 const { Content } = await render(post);
-
-// Get the specific room styling
 const roomDetails = ROOMS['gallery'];
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <html lang="en">
@@ -34,42 +21,219 @@ const roomDetails = ROOMS['gallery'];
     <meta name="viewport" content="width=device-width" />
     <title>{post.data.title} | {roomDetails.label}</title>
   </head>
-  
+
   <body class="bg-stone-100 text-stone-900 min-h-screen p-8 md:p-16">
-    <div class="max-w-3xl mx-auto">
-      
-      <a href="/" class="text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors mb-12 inline-block">
-        &larr; Back to the Main Hall
+    <div class="max-w-7xl mx-auto">
+
+      <a href={`${base}/gallery/`} class="text-xs uppercase tracking-widest text-stone-500 hover:text-stone-900 transition-colors mb-12 inline-block">
+        &larr; Back to the Gallery
       </a>
 
-      <article>
-        
-        <header class="mb-12 border-b border-stone-300 pb-8">
-          <h1 class="text-4xl md:text-5xl font-serif text-stone-800 mb-4">
-            {post.data.title}
-          </h1>
-          
-          <div class="flex items-center gap-3 text-xs tracking-widest uppercase">
-            <time class="text-stone-500">{formatPostmark(post.data.date)}</time>
-            <span class="text-stone-300">|</span>
-            <span style={`color: ${roomDetails.colour}`}>{roomDetails.label}</span>
-          </div>
-          
-          {(post.data.medium || post.data.dimensions) && (
-            <div class="mt-6 text-sm text-stone-500 italic">
-              {post.data.medium && <span>{post.data.medium}</span>}
-              {post.data.medium && post.data.dimensions && <span>, </span>}
-              {post.data.dimensions && <span>{post.data.dimensions}</span>}
-            </div>
-          )}
-        </header>
-
-        <div class="prose prose-stone prose-lg md:prose-xl max-w-none prose-headings:font-serif prose-a:text-sienna hover:prose-a:text-stone-900">
-          <Content />
+      <header class="mb-12 border-b border-stone-300 pb-8 w-full">
+        <h1 class="text-4xl md:text-5xl font-serif text-stone-800 mb-4">{post.data.title}</h1>
+        <div class="flex items-center gap-3 text-xs tracking-widest uppercase mb-4">
+          <time class="text-stone-500">{formatPostmark(post.data.date)}</time>
+          <span class="text-stone-300">|</span>
+          <span style={`color: ${roomDetails.colour}`}>{roomDetails.label}</span>
         </div>
-        
-      </article>
+        <p class="text-stone-600 font-serif text-lg leading-relaxed">{post.data.description}</p>
+      </header>
+
+      {/* THE FIX: We render Content normally so the text appears. */}
+      <div id="content-source" class="gallery-article">
+        <Content />
+      </div>
+
+      {/* The grid where JS will teleport the images/videos */}
+      <div id="masonry-grid" class="masonry-grid"></div>
 
     </div>
   </body>
 </html>
+
+<style is:global>
+  /* ── Text Styling ────────────────────────────────────────── */
+  .gallery-article > p {
+  width: 100%;            /* Forces it to take the full container width */
+  max-width: none;        /* Removes the 48rem (3xl) limit */
+  font-family: theme('fontFamily.serif');
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: theme('colors.stone.700');
+  margin-bottom: 1.5rem;
+}
+
+  /* THE FIX: Hide the raw media elements in the markdown so they don't show up twice,
+     but leave the text completely visible! */
+  .gallery-article img,
+  .gallery-article video {
+    display: none; 
+  }
+
+  /* ── Masonry grid: 3 explicit column containers ─────────── */
+  .masonry-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    align-items: start;
+    margin-top: 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .masonry-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .masonry-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* Each column is its own flex stack */
+  .masonry-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  /* ── Image & Video tiles ─────────────────────────────────── */
+  .masonry-item {
+    width: 100%;
+    border-radius: 3px;
+    display: block;
+    height: auto;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.08);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+  
+  img.masonry-item {
+    cursor: zoom-in;
+  }
+
+  .masonry-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgb(0 0 0 / 0.14);
+  }
+
+  /* ── Lightbox ────────────────────────────────────────────── */
+  #lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.88);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+    padding: 2rem;
+  }
+
+  #lightbox.open { display: flex; }
+
+  #lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 3px;
+    box-shadow: 0 24px 60px rgb(0 0 0 / 0.5);
+  }
+
+  #lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    color: rgba(255,255,255,0.7);
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+  #lightbox-close:hover { color: #fff; }
+</style>
+
+<script>
+  const COLS = () => window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1;
+
+  function buildGrid() {
+    const grid   = document.getElementById('masonry-grid');
+    const source = document.getElementById('content-source');
+    if (!grid || !source) return;
+
+    // THE FIX: Grab BOTH images and videos
+    const mediaItems = Array.from(source.querySelectorAll('img, video'));
+    if (mediaItems.length === 0) return;
+
+    const colCount   = COLS();
+    const colHeights = new Array(colCount).fill(0);   
+    const colEls     = Array.from({ length: colCount }, () => {
+      const col = document.createElement('div');
+      col.className = 'masonry-col';
+      return col;
+    });
+
+    grid.innerHTML = '';
+    colEls.forEach(col => grid.appendChild(col));
+
+    mediaItems.forEach(media => {
+      const shortestCol = colHeights.indexOf(Math.min(...colHeights));
+
+      // Clone the item and unhide it
+      const clone = media.cloneNode(true) as HTMLElement;
+      clone.className = 'masonry-item';
+      clone.style.display = 'block'; 
+
+      // THE FIX: Only add lightbox to images, leave videos alone
+      if (clone.tagName.toLowerCase() === 'img') {
+        const imgClone = clone as HTMLImageElement;
+        imgClone.loading  = 'lazy';
+        imgClone.decoding = 'async';
+        imgClone.addEventListener('click', () => openLightbox(imgClone.src, imgClone.alt));
+      }
+
+      colEls[shortestCol].appendChild(clone);
+
+      // THE FIX: Use Astro's pre-rendered width/height attributes for instant math
+      const width = parseFloat(clone.getAttribute('width') || '1') || (clone as HTMLImageElement).naturalWidth || 1;
+      const height = parseFloat(clone.getAttribute('height') || '1') || (clone as HTMLImageElement).naturalHeight || 0.75;
+      
+      const ratio = height / width; 
+      const colWidth = grid.offsetWidth / colCount;
+      
+      colHeights[shortestCol] += colWidth * ratio + 20; 
+    });
+  }
+
+  // ── Lightbox ──────────────────────────────────────────────
+  function openLightbox(src: string, alt: string) {
+    const lb  = document.getElementById('lightbox') as HTMLElement;
+    const img = lb.querySelector('img') as HTMLImageElement;
+    img.src = src;
+    img.alt = alt;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    const lb = document.getElementById('lightbox') as HTMLElement;
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // ── Init ──────────────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', () => {
+    const lb = document.createElement('div');
+    lb.id = 'lightbox';
+    lb.innerHTML = `<button id="lightbox-close" aria-label="Close">&times;</button><img src="" alt="" />`;
+    document.body.appendChild(lb);
+    lb.addEventListener('click', closeLightbox);
+    document.getElementById('lightbox-close')!.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', e => e.key === 'Escape' && closeLightbox());
+
+    buildGrid();
+
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(buildGrid, 150);
+    });
+  });
+</script>
