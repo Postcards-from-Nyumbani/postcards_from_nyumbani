@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "archive/poetry/WAB3IANA.md",
+                "file": "gallery/kiambu_trek.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "WAB3IANA"
+              "title": "kiambu_trek"
             }
           }
         ]
@@ -195,23 +195,34 @@
   },
   "active": "8019767dedbb6972",
   "lastOpenFiles": [
-    "images/leftie_portrait.jpg",
+    "archive/poetry/WAB3IANA.md",
+    "images/kiambu/kiambu00155.mp4",
+    "images/kiambu/kiambu00154.mp4",
+    "images/kiambu/kiambu00153.mp4",
+    "images/kiambu/kiambu00152.mp4",
+    "images/kiambu/kiambu00151.mp4",
+    "images/kiambu/kiambu00150.jpeg",
+    "images/kiambu/kiambu00149.jpeg",
+    "images/kiambu/kiambu00148.jpeg",
+    "images/kiambu/kiambu00147.jpeg",
+    "images/kiambu/kiambu00146.jpeg",
+    "images/kiambu/kiambu00145.jpeg",
+    "images/kiambu/kiambu00144.jpeg",
+    "images/kiambu/kiambu00143.jpeg",
+    "images/kiambu/kiambu00142.jpeg",
+    "images/kiambu/kiambu00141.jpeg",
+    "images/kiambu00155.mp4",
+    "images/kiambu00154.mp4",
+    "images/kiambu00153.mp4",
+    "images/kiambu00152.mp4",
+    "images/kiambu00151.mp4",
+    "gallery/kiambu_trek.md",
     "archive/poetry/Leftie With a Silent T.md",
     "archive/stories/coffee-date.md",
-    "images/infatuations.jpg",
-    "images/love_ain't_a_chore.jpg",
-    "images/feiy.jpg",
-    "images/wabeiana.jpg",
-    "images/wab3iana.jpg",
-    "images/ben-scott-CwWCuaTp21o-unsplash.jpg",
-    "archive/poetry/WAB3IANA.md",
-    "images/coffee_date.jpg",
     "archive/stories/love-is-not-a-chore.md",
     "archive/stories/of-infatuations-and-detachments.md",
     "archive/poetry/fe3y-take-me-back-to-2017.md",
     "gallery/sketchbook-001.md",
-    "archive/stories",
-    "archive/poetry",
     "conservatory/fingerstyle-d-minor.md",
     "archive/people-who-taught-me.md"
   ]

@@ -1,6 +1,6 @@
 ---
 title: "First Sketchbook"
-description: "Graphite and ink studies. A collection of early attempts, quiet observations, and learning to see."
+description: "The linework is messy, the shapes skewed, and the forms ain't forming, but this was the most fun I've had in a while."
 date: 2026-04-16
 status: published
 cover: ../images/1000106630.jpg.jpeg
@@ -9,7 +9,7 @@ medium: "Graphite & Pen on Paper"
 ---
 This is the first sketchbook I ever managed to fill from cover to cover. There is something profoundly intimidating about the first blank page of a new book, but by the end, it becomes a messy, honest record of how you spent your time. 
 
-These pages are a mix of quick observational sketches, quiet afternoons, studies of hands (always the hardest part), and ink washes done late at night. It is not perfect, but it is real.
+These pages are a mix of 1-hour sessions I used to partake in back in 2024, I'd then throw in a longer session on Sundays while reflecting on my week, good times.
 
 <div class="masonry-gallery">
 
