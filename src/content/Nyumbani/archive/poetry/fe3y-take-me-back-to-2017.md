@@ -7,7 +7,7 @@ date: 2022-05-30
 
 status: published
 
-cover: ../../images/feiy.jpg
+cover: ../../images/cover/feiy.jpg
 
 tags: [poetry, nostalgia, romance]
 

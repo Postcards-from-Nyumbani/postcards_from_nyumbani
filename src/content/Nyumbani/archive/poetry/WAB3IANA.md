@@ -7,7 +7,7 @@ date: 2022-05-30
 
 status: published
 
-cover: ../../images/wabeiana.jpg
+cover: ../../images/cover/wabeiana.jpg
 
 tags: [poetry, relationships, intense]
 

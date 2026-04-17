@@ -7,7 +7,7 @@ date: 2021-09-07
 
 status: published
 
-cover: "../../images/leftie_portrait.jpg"
+cover: "../../images/cover/leftie_portrait.jpg"
 
 tags: [poetry, relationships, nostalgia]
 

@@ -3,7 +3,7 @@ title: "Coffee Date"
 description: "A brief dialogue on favorite colors, dead artists, and the realization that love might be worth a chance."
 date: 2022-01-19
 status: published
-cover: ../../images/coffee_date.jpg
+cover: ../../images/cover/coffee_date.jpg
 tags: [flash-fiction, dialogue, connection]
 mood: "Observational"
 ---

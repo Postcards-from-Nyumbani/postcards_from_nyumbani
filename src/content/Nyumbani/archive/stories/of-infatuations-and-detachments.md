@@ -3,7 +3,7 @@ title: "Of Infatuations and Detachments"
 description: "A deep dive into past connections, the logic of the heart, and the fear of the chase."
 date: 2023-11-13
 status: published
-cover: ../../images/infatuations.jpg
+cover: ../../images/cover/infatuations.jpg
 tags: [prose, reflection, relationships]
 mood: "Introspective"
 dedication: To all my lovers

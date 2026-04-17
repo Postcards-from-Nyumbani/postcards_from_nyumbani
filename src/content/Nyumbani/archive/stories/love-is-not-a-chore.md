@@ -3,7 +3,7 @@ title: "Love is Not a Chore"
 description: "Reflections from 'the trenches' on the clarity of detachment and the expectations of a keeper."
 date: 2023-08-31
 status: published
-cover: ../../images/love_ain't_a_chore.jpg
+cover: ../../images/cover/love_ain't_a_chore.jpg
 tags: [essay, dating, growth]
 mood: "Detached"
 ---
