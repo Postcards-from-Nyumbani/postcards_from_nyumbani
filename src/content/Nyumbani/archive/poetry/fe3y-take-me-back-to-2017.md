@@ -48,20 +48,20 @@ Coz I’ve got a feeling ours would be great
 
 And just to predict the last lines I’d say. 
 
-He turned at her cutely 
+*He turned at her cutely* 
 
-Sentimental eyes, pulled closer 
+*Sentimental eyes, pulled closer* 
 
-And brushed his lips against hers. 
+*And brushed his lips against hers.* 
 
-Obsessively they belonged, 
+*Obsessively they belonged,* 
 
-Belonged to their ever after 
+*Belonged to their ever after* 
 
-Which had dawned 
+*Which had dawned* 
 
-Bright & 
+*Bright &* 
 
-warm 
+*warm* 
 
 </div>

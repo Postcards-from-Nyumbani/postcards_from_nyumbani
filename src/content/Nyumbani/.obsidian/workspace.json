@@ -13,22 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "gallery/kiambu_trek.md",
+                "file": "conservatory/I'm Afraid She'z my Type 1.md",
                 "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
+                "source": false
               },
               "icon": "lucide-file",
-              "title": "kiambu_trek"
+              "title": "I'm Afraid She'z my Type 1"
             }
           }
         ]
@@ -51,7 +41,7 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": false
+                "autoReveal": true
               },
               "icon": "lucide-folder-closed",
               "title": "Files"
@@ -195,6 +185,13 @@
   },
   "active": "8019767dedbb6972",
   "lastOpenFiles": [
+    "conservatory/I'm Afraid She'z my Type.md",
+    "conservatory/I'm Afraid She'z my Type 1.md",
+    "archive/poetry/fe3y-take-me-back-to-2017.md",
+    "Untitled.canvas",
+    "2026-04-18.md",
+    "Untitled.base",
+    "gallery/kiambu_trek.md",
     "archive/poetry/WAB3IANA.md",
     "images/kiambu/kiambu00155.mp4",
     "images/kiambu/kiambu00154.mp4",
@@ -215,13 +212,10 @@
     "images/kiambu00154.mp4",
     "images/kiambu00153.mp4",
     "images/kiambu00152.mp4",
-    "images/kiambu00151.mp4",
-    "gallery/kiambu_trek.md",
     "archive/poetry/Leftie With a Silent T.md",
     "archive/stories/coffee-date.md",
     "archive/stories/love-is-not-a-chore.md",
     "archive/stories/of-infatuations-and-detachments.md",
-    "archive/poetry/fe3y-take-me-back-to-2017.md",
     "gallery/sketchbook-001.md",
     "conservatory/fingerstyle-d-minor.md",
     "archive/people-who-taught-me.md"

@@ -2,7 +2,7 @@
 title: I'm afraid she'z my type
 description: A UON babe with a cam stole my heart, or what was left of it. This playlist on shuffle reminds me of my uni; it's me taking a stroll around on a cloudy day.
 date: 2025-04-28
-status: published
+status: draft
 cover: ../images/cover/playlist-vibe.jpg
 tags:
   - music
@@ -15,6 +15,8 @@ tags:
 mood: Reflective
 artist: Various — Kenyan Independent
 ---
+I'm afraid she is my type came about after i attended a Huawei Recruitment Event held at the Mahatma Gandhi Wing UON, and they had the baddest photographer, mid way through the event, she handled her camera to her colleague and left, never to be seen again. The
+
 
 There is a particular kind of afternoon that only happens at UON. The sky goes the colour of an old coin, the kind that has been handled too many times. The jacarandas on University Way drop purple onto the pavement and nobody remarks on it because beauty, when it is consistent enough, becomes wallpaper. You are walking back from somewhere — a class, a library, a conversation that went longer than it should have — and the city is doing that thing it does, holding its breath.
 
