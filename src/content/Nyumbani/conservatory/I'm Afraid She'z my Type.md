@@ -2,7 +2,7 @@
 title: I'm afraid she'z my type
 description: A UON babe with a cam stole my heart, or what was left of it. This playlist on shuffle reminds me of my uni; it's me taking a stroll around on a cloudy day.
 date: 2025-04-28
-status: published
+status: draft
 cover: ../images/cover/playlist-vibe.jpg
 tags:
   - music
