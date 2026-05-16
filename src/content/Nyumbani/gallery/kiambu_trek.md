@@ -1,6 +1,6 @@
 ---
 title: "The Rainy Road to Kiambu"
-description: "A 16.14 km mapping between Ruiru and Kiambu, here are some snapshots i took."
+description: "A 16.14 km mapping between Ruiru and Kiambu, here are some snapshots I took."
 date: 2026-03-20
 status: published
 cover: ../images/kiambu/kiambu00110.jpeg
@@ -8,7 +8,7 @@ tags: [trek, kiambu, ruiru, rain, chronology]
 medium: "Digital Digital-Negative"
 ---
 
-I'd never been to kiambu town before, I remember saying this to my mum and she jokingly told me that I should never say that out loud. We relocated to Ruiru when I was 7, at the time, it was in central province so kiambu was just a town past BTL/Prisons, the farthest i'd been on that side, I imagined kiambu was green and pretty and i'd visit it someday since everyone who'd described it before to me never did say a bad word about the place, then an opportunity presented itself, a trek from ruiru to kiambu, a road i'd never been before, so this was special to me, the road revealing itself, the faces changing and above all, the topography, i hope you like this documentation, as much as i enjoyed every moment of it.
+I'd never been to kiambu town before, I remember saying this to my mum and she jokingly told me that I should never say that out loud. We relocated to Ruiru when I was 7, at the time, it was in central province so Kiambu was just a town past BTL/Prisons, the farthest i'd been on that side. I imagined Kiambu was green and lush and i'd swore i would visit it someday since everyone who'd described it before to me never did say a bad word about the place, then an opportunity presented itself, a trek from Ruiru to Kiambu, a road i'd never been before, so this was special to me, the road revealing itself, the weather and above all, the topography, i hope you like this documentation, as much as i enjoyed every moment of it.
 
 <div class="masonry-gallery">
 

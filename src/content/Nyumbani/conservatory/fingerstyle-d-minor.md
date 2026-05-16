@@ -6,7 +6,7 @@ date: 2025-05-18
 
 description: "Three months on a single chord progression. The guitar teaches patience the way no one else will."
 
-status: "published"
+status: "draft"
 
 tags: ["guitar", "practice", "patience"]
 
